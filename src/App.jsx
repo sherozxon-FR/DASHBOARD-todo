@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { dashboardRoutes } from './routes/dashboardroutes'  // kichik r
+import { dashboardRoutes } from './routes/dashboardRoutes'
 
 const router = createBrowserRouter([dashboardRoutes])
 
