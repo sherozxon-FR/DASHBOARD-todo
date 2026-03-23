@@ -1,30 +1,41 @@
 import { NavLink } from 'react-router-dom'
 import styles from './Sidebar.module.css'
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 
-function Sidebar() {
+
+function Sidebar({ open, setOpen }) {
+
     return (
-        <div className={styles.sidebarContainer}>
+        <div className={`${styles.sidebarContainer} ${!open ? styles.closed : ''}`}>
+
             <div className={styles.logoTxt}>
-                <h1>Dashboard 🎉</h1>
+                {open && <h1>Dashboard</h1>}
+                <button onClick={() => setOpen(!open)} className={styles.toggleBtn}>
+                    {open ? <FaAngleLeft /> : <FaAngleRight />}
+                </button>
             </div>
 
             <nav className={styles.pagesContainer}>
                 <ul>
-                    <NavLink to='/'>Dashboard</NavLink>
-                    <NavLink to='/vazifalar'>Vazifalar</NavLink>
-                    <NavLink to='/kalendar'>Kalendar</NavLink>
+                    <NavLink to='/'><span>Dashboard</span></NavLink>
+                    <NavLink to='/vazifalar'><span>Vazifalar</span></NavLink>
+                    <NavLink to='/kalendar'><span>Kalendar</span></NavLink>
                 </ul>
 
                 <div className={styles.categoryContainer}>
-                    <h2>Category</h2>
+                    {open && <h2>Category</h2>}
                     <ul>
-                        <NavLink to='/categories/ish'>Ish</NavLink>
-                        <NavLink to='/categories/uqish'>O'qish</NavLink>
-                        <NavLink to='/categories/shaxsiy'>Shaxsiy</NavLink>
-                        <NavLink to='/categories/loyha'>Loyha</NavLink>
+                        <NavLink to='/categories/ish'><span>Ish</span></NavLink>
+                        <NavLink to='/categories/uqish'><span>O'qish</span></NavLink>
+                        <NavLink to='/categories/shaxsiy'><span>Shaxsiy</span></NavLink>
+                        <NavLink to='/categories/loyha'><span>Loyha</span></NavLink>
                     </ul>
                 </div>
             </nav>
+
+
+
+
         </div>
     )
 }
