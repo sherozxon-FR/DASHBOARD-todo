@@ -21,11 +21,12 @@ const categoryLinks = [
   { to: '/categories/loyha', label: 'Loyha', icon: <MdFolderSpecial /> },
 ]
 
-const checkMobile = () => window.innerWidth <= 768
+// 425px va undan kichik barcha o'lchamlar MOBILE deb hisoblanadi
+const checkMobile = () => window.innerWidth <= 425
 const checkCollapsed = () => window.innerWidth <= 1200
 
 export default function MainLayout() {
-  const [isMobile, setIsMobile] = useState(checkMobile)
+  const [isMobile, setIsMobile] = useState(checkMobile())
   const [open, setOpen] = useState(!checkCollapsed())
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -33,11 +34,13 @@ export default function MainLayout() {
     const handleResize = () => {
       const mobile = checkMobile()
       setIsMobile(mobile)
+
       if (mobile) {
-        setOpen(false)
-        setMobileOpen(false)
+        // Mobil rejimda desktop sidebar render bo'lmasligi kerak
+        setOpen(true)
       } else {
         setOpen(!checkCollapsed())
+        setMobileOpen(false)
       }
     }
     window.addEventListener('resize', handleResize)
@@ -114,33 +117,31 @@ export default function MainLayout() {
   return (
     <div className={styles.wrapper}>
 
-      {/* Desktop sidebar */}
+      {/* 1. DESKTOP SIDEBAR - Faqat mobil bo'lmaganda render bo'ladi */}
       {!isMobile && (
         <aside className={`${styles.sidebar} ${!open ? styles.closed : ''}`}>
           <SidebarContent mobile={false} />
         </aside>
       )}
 
-      {/* Mobile hamburger */}
-      {isMobile && !mobileOpen && (
+      {/* 2. HAMBURGER ICON - Faqat mobil rejimda ko'rinadi */}
+      {isMobile && (
         <button className={styles.hamburger} onClick={() => setMobileOpen(true)}>
           <MdMenu />
         </button>
       )}
 
-      {/* Mobile overlay */}
+      {/* 3. MOBILE OVERLAY */}
       {isMobile && mobileOpen && (
         <div className={styles.overlay} onClick={closeMobile} />
       )}
 
-      {/* Mobile sidebar */}
-      {isMobile && (
-        <aside className={`${styles.mobileSidebar} ${mobileOpen ? styles.mobileOpen : ''}`}>
-          <SidebarContent mobile={true} />
-        </aside>
-      )}
+      {/* 4. MOBILE SIDEBAR (DRAWER) */}
+      <aside className={`${styles.mobileSidebar} ${mobileOpen ? styles.mobileOpen : ''}`}>
+        <SidebarContent mobile={true} />
+      </aside>
 
-      {/* Main */}
+      {/* 5. MAIN CONTENT */}
       <main className={`
         ${styles.main}
         ${!isMobile && !open ? styles.mainClosed : ''}
