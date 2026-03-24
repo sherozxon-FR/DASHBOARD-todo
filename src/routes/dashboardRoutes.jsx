@@ -3,7 +3,7 @@ import MainLayout from '../Layouts/MainLayout'
 
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Vazifalar = lazy(() => import('../pages/Vazifalar'))
-const Kalendar = lazy(() => import('../pages/Kalendar'))
+const Kalendar = lazy(() => import('../pages/CalendarApp'))
 
 const Ish = lazy(() => import('../pages/categories/Ish'))
 const Uqish = lazy(() => import('../pages/categories/uqish'))

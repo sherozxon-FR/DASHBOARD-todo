@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+
+:root {
+    --primary: #6366f1;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #f1f5f9;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: clamp(10px, 3vw, 40px);
+    background-color: var(--bg-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.card {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    background: var(--card-bg);
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    flex-direction: row;
+    /* Desktop uchun */
+}
+
+/* --- CHAP TOMON (KALENDAR) --- */
+.left {
+    flex: 1;
+    padding: clamp(12px, 4vw, 30px);
+    min-width: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 8px;
+    flex-wrap: wrap;
+    /* Kichik ekranda pastga tushishi uchun */
+}
+
+.header span {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+.header button {
+    padding: 8px 14px;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header button:hover {
+    background: var(--text-main);
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* SETKA */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.dayHead {
+    background: #fafcfe;
+    padding: 12px 2px;
+    text-align: center;
+    font-weight: 700;
+    font-size: clamp(0.6rem, 2vw, 0.75rem);
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.dayCell {
+    background: #ffffff;
+    min-height: clamp(60px, 12vh, 100px);
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+}
+
+.dayCell:hover {
+    background: #f8fafc;
+    z-index: 1;
+}
+
+.dayNum {
+    font-weight: 700;
+    font-size: clamp(0.75rem, 3vw, 0.95rem);
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+/* BUGUN VA TANLANGAN KUN */
+.isToday {
+    background: #eff6ff !important;
+}
+
+.isToday .dayNum {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.isSelected {
+    background: #f5f3ff !important;
+    box-shadow: inset 0 0 0 2px var(--primary);
+}
+
+.otherMonth {
+    opacity: 0.35;
+    background: #fcfcfc;
+}
+
+/* EVENTLAR (NUQTA VA CHIZIQ) */
+.evtDot {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 6px;
+    margin-bottom: 3px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.moreBadge {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-weight: 800;
+    margin-top: auto;
+}
+
+/* --- O'NG TOMON (INFO) --- */
+.right {
+    width: clamp(280px, 30%, 350px);
+    padding: clamp(15px, 4vw, 30px);
+    background: #fcfdfe;
+    border-left: 1px solid var(--border-color);
+}
+
+.right h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.evtCard {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+/* --- EKSTREMAL RESPONSIVE --- */
+
+/* 992px gacha (Planshet) */
+@media (max-width: 992px) {
+    .card {
+        flex-direction: column;
+    }
+
+    .right {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+    }
+}
+
+/* 480px gacha (Smartfon) */
+@media (max-width: 480px) {
+    .dayCell {
+        min-height: 70px;
+        padding: 4px;
+    }
+
+    .evtDot {
+        font-size: 0;
+        padding: 3px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 2px;
+    }
+}
+
+/* 320px va undan kichik (Micro) */
+@media (max-width: 340px) {
+    .wrapper {
+        padding: 5px;
+    }
+
+    .left {
+        padding: 10px;
+    }
+
+    .header {
+        justify-content: center;
+    }
+
+    .header button {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    /* Haftaning qisqa nomlari */
+    .dayHead {
+        font-size: 0.55rem;
+    }
+
+    .dayCell {
+        min-height: 55px;
+        border-radius: 8px;
+    }
+
+    .dayNum {
+        font-size: 0.75rem;
+    }
+
+    /* Juda kichik ekranda o'ng tomonni ixchamlashtirish */
+    .right {
+        padding: 15px;
+    }
+
+    .evtCard {
+        padding: 10px;
+    }
+}
