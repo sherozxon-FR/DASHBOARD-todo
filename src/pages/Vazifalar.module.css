@@ -1,0 +1,462 @@
+/* Vazifalar.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ─── Container ─────────────────────────────────────────── */
+.container {
+    font-family: 'DM Sans', sans-serif;
+    background: #faf9f7;
+    min-height: 100vh;
+    padding: 28px 24px;
+    width: 95%;
+    margin: 0 auto;
+    color: #1a1a1a;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: #111;
+    margin: 0;
+}
+
+.addBtn {
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.12s;
+}
+
+.addBtn:hover {
+    background: #333;
+    transform: translateY(-1px);
+}
+
+/* ─── Top Actions ────────────────────────────────────────── */
+.topActions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+/* Search */
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid #e8e6e1;
+    border-radius: 22px;
+    padding: 0 14px;
+    height: 40px;
+    flex: 1;
+    min-width: 160px;
+    transition: border-color 0.18s;
+}
+
+.searchWrapper:focus-within {
+    border-color: #bbb;
+}
+
+.searchIcon {
+    font-size: 14px;
+    margin-right: 8px;
+    opacity: 0.55;
+}
+
+.search {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: inherit;
+    color: #333;
+    width: 100%;
+}
+
+.search::placeholder {
+    color: #aaa;
+}
+
+/* Status Filter Buttons */
+.statusFilters {
+    display: flex;
+    gap: 6px;
+}
+
+.filterBtn {
+    background: transparent;
+    border: 1.5px solid #e0ddd7;
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 13.5px;
+    font-family: inherit;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.16s;
+}
+
+.filterBtn:hover {
+    background: #f0ece5;
+    border-color: #ccc;
+}
+
+.activeFilter {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
+
+.activeFilter:hover {
+    background: #333;
+    border-color: #333;
+}
+
+/* ─── Select Group ───────────────────────────────────────── */
+.selectGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.select {
+    width: 100%;
+    background: #fff;
+    border: 1.5px solid #e8e6e1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #555;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+    transition: border-color 0.18s;
+}
+
+.select:focus {
+    outline: none;
+    border-color: #bbb;
+}
+
+/* ─── View Toggle (List/Board) ───────────────────────────── */
+.viewToggle {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.viewBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #fff;
+    border: 1.5px solid #e0ddd7;
+    border-radius: 10px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.16s;
+}
+
+.viewBtn:hover {
+    background: #f3f1ec;
+}
+
+.viewBtnActive {
+    background: #fff;
+    border-color: #999;
+    color: #111;
+    font-weight: 600;
+}
+
+/* ─── List Section ───────────────────────────────────────── */
+.listSection {
+    margin-bottom: 28px;
+}
+
+.listHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.listHeader h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+}
+
+.badgeCount {
+    background: #f0ece5;
+    color: #555;
+    border-radius: 20px;
+    padding: 2px 9px;
+    font-size: 12.5px;
+    font-weight: 600;
+    min-width: 24px;
+    text-align: center;
+}
+
+/* ─── Todo List ──────────────────────────────────────────── */
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* ─── Todo Item ──────────────────────────────────────────── */
+.todoItem {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid #eceae5;
+    border-radius: 12px;
+    padding: 13px 14px;
+    gap: 12px;
+    transition: box-shadow 0.18s, border-color 0.18s;
+    position: relative;
+}
+
+.todoItem:hover {
+    border-color: #ddd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* Colored left border indicator */
+.priorityIndicator {
+    width: 3px;
+    height: 34px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+/* Item Content */
+.itemContent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid #ccc;
+    accent-color: #1D9E75;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.todoText {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Completed todo styling */
+.todoItem.completed .todoText {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+/* Meta Info */
+.metaInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.categoryBadge {
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    padding: 2px 8px;
+}
+
+.deadlineInfo {
+    font-size: 12px;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Priority Label (right side) */
+.priorityLabel {
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 4px 10px;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+/* ─── Inline Add ─────────────────────────────────────────── */
+.addInline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1.5px dashed #dddad4;
+    border-radius: 12px;
+    padding: 11px 14px;
+    margin-top: 4px;
+    transition: border-color 0.18s, background 0.18s;
+    cursor: text;
+}
+
+.addInline:hover {
+    border-color: #bbb;
+    background: #fdfcfa;
+}
+
+.plusIcon {
+    font-size: 16px;
+    color: #bbb;
+    line-height: 1;
+}
+
+.inlineInput {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: inherit;
+    color: #999;
+    width: 100%;
+}
+
+.inlineInput::placeholder {
+    color: #c0bcb5;
+}
+
+/* ─── Completed Section ──────────────────────────────────── */
+.completedSection .todoText {
+    text-decoration: line-through;
+    color: #b0aca5;
+}
+
+.completedSection .priorityLabel {
+    opacity: 0.6;
+}
+
+.completedSection .categoryBadge {
+    opacity: 0.6;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px 14px;
+    }
+
+    .topActions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .statusFilters {
+        justify-content: center;
+    }
+}
+
+/* ── Action Buttons (hover) ──────────────────────────────── */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.16s;
+    flex-shrink: 0;
+}
+
+.actionsVisible {
+    opacity: 1;
+}
+
+.actionBtn {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    border: 1.5px solid #e8e5e0;
+    background: #fff;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.actionBtn:hover {
+    background: #f5f2ed;
+    border-color: #bbb;
+    color: #222;
+}
+
+.deleteBtn:hover {
+    background: #fff0f0;
+    border-color: #E24B4A;
+    color: #E24B4A;
+}
+
+/* Completed item styling */
+.completedItem .todoText {
+    text-decoration: line-through;
+    color: #b0aca5;
+}
+
+.completedItem .priorityLabel {
+    opacity: 0.5;
+}
+
+.completedItem .categoryBadge {
+    opacity: 0.5;
+}
+
+.completedItem .priorityIndicator {
+    opacity: 0.35;
+}

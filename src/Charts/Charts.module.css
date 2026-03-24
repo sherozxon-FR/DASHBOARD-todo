@@ -190,3 +190,10 @@
     outline: none !important;
     stroke: none !important;
 }
+
+.modalEmpty {
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+    padding: 1rem 0;
+}
