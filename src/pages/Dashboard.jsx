@@ -1,3 +1,5 @@
+import CategoryChart from "../Charts/CategoryChart"
+import TaqsimotChart from "../Charts/TaqsimotChart"
 import styles from './dasboard.module.css'
 
 function Dashboard() {
@@ -23,6 +25,7 @@ function Dashboard() {
   ]
   return (
     <div className={styles.DashboardContainer}>
+      {/* cart  container  */}
       <div className={styles.cartCntainer}>
         {headCart && headCart.map((txt) => {
           return (
@@ -37,6 +40,12 @@ function Dashboard() {
           )
         })}
       </div>
+      {/*   chart container  */}
+      <div className={styles.ChartConatiner}>
+        <CategoryChart />
+        <TaqsimotChart />
+      </div>
+
 
 
 
