@@ -32,6 +32,9 @@ function Vazifalar() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editingTodo, setEditingTodo] = useState(null)
 
+  // Toast state
+  const [toast, setToast] = useState(null) // { id, text }
+
   const filtered = useMemo(() => {
     return todos.filter((t) => {
       const todoText = (t.text || t.title || "").toLowerCase()
@@ -63,6 +66,22 @@ function Vazifalar() {
   const handleModalClose = () => {
     setModalOpen(false)
     setEditingTodo(null)
+  }
+
+  // O'chirishdan oldin toast ko'rsatish
+  const handleRemove = (todo) => {
+    setToast({ id: todo.id, text: todo.text || todo.title })
+  }
+
+  const confirmDelete = () => {
+    if (toast) {
+      removeTodo(toast.id)
+      setToast(null)
+    }
+  }
+
+  const cancelDelete = () => {
+    setToast(null)
   }
 
   return (
@@ -127,7 +146,7 @@ function Vazifalar() {
                 priorityColors={priorityColors}
                 categoryColors={categoryColors}
                 onToggle={toggleTodo}
-                onRemove={removeTodo}
+                onRemove={handleRemove}
                 onEdit={handleEditOpen}
               />
             ))}
@@ -154,7 +173,7 @@ function Vazifalar() {
                 priorityColors={priorityColors}
                 categoryColors={categoryColors}
                 onToggle={toggleTodo}
-                onRemove={removeTodo}
+                onRemove={handleRemove}
                 onEdit={handleEditOpen}
                 completed
               />
@@ -171,19 +190,30 @@ function Vazifalar() {
         onEdit={handleEdit}
         editingTodo={editingTodo}
       />
+
+      {/* Delete Toast */}
+      {toast && (
+        <div className={styles.toast}>
+          <div className={styles.toastIcon}>🗑️</div>
+          <div className={styles.toastContent}>
+            <span className={styles.toastTitle}>Vazifani o'chirish</span>
+            <span className={styles.toastText}>
+              "<strong>{toast.text}</strong>" o'chirilsinmi?
+            </span>
+          </div>
+          <div className={styles.toastActions}>
+            <button className={styles.toastCancel} onClick={cancelDelete}>Bekor</button>
+            <button className={styles.toastConfirm} onClick={confirmDelete}>O'chirish</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function TodoItem({ todo, priorityColors, categoryColors, onToggle, onRemove, onEdit, completed = false }) {
-  const [showActions, setShowActions] = useState(false)
-
   return (
-    <li
-      className={`${styles.todoItem} ${todo.done ? styles.completedItem : ""}`}
-      onMouseEnter={() => setShowActions(true)}
-      onMouseLeave={() => setShowActions(false)}
-    >
+    <li className={`${styles.todoItem} ${todo.done ? styles.completedItem : ""}`}>
       <div
         className={styles.priorityIndicator}
         style={{ backgroundColor: priorityColors[todo.priority] }}
@@ -218,8 +248,8 @@ function TodoItem({ todo, priorityColors, categoryColors, onToggle, onRemove, on
         </div>
       </div>
 
-      {/* Hover action tugmalari */}
-      <div className={`${styles.actions} ${showActions ? styles.actionsVisible : ""}`}>
+      {/* Action tugmalari */}
+      <div className={styles.actions}>
         <button
           className={styles.actionBtn}
           title="Tahrirlash"
@@ -233,7 +263,7 @@ function TodoItem({ todo, priorityColors, categoryColors, onToggle, onRemove, on
         <button
           className={`${styles.actionBtn} ${styles.deleteBtn}`}
           title="O'chirish"
-          onClick={(e) => { e.stopPropagation(); onRemove(todo.id) }}
+          onClick={(e) => { e.stopPropagation(); onRemove(todo) }}
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
