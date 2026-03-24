@@ -23,28 +23,23 @@
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
 }
 
-.closed {
+/* Icon-only holat */
+.sidebarIcon {
     width: 68px;
+    padding: 24px 10px;
 }
 
-/* ===== MOBILE SIDEBAR ===== */
-.mobileSidebar {
+/* ===== MOBILE DRAWER ===== */
+.drawer {
     width: 260px;
     height: 100dvh;
-    /* background: linear-gradient(160deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%); */
-    background-color: rgba(16, 16, 17, 0.6);
-
-    /* Effektni kuchaytirish */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    /* Safari brauzeri uchun */
-
-    padding: 24px 10px;
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+    padding: 24px 14px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     position: fixed;
-    left: -360px;
+    left: -300px;
     top: 0;
     z-index: 200;
     overflow: hidden;
@@ -52,10 +47,7 @@
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
 }
 
-
-
-
-.mobileOpen {
+.drawerOpen {
     left: 0;
 }
 
@@ -95,7 +87,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: all 0.2s;
 }
@@ -104,7 +96,7 @@
     background: rgba(167, 139, 250, 0.2);
 }
 
-/* ===== LOGO ===== */
+/* ===== LOGO ROW ===== */
 .logoRow {
     display: flex;
     align-items: center;
@@ -116,7 +108,7 @@
 }
 
 .logoText {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 800;
     background: linear-gradient(135deg, #a78bfa, #60a5fa);
     -webkit-background-clip: text;
@@ -125,7 +117,7 @@
     letter-spacing: -0.3px;
 }
 
-/* ===== TOGGLE BUTTON ===== */
+/* ===== TOGGLE ===== */
 .toggleBtn {
     background: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -175,12 +167,20 @@
     border-radius: 12px;
     color: #8892b0;
     text-decoration: none;
-    font-size: 13.5px;
+    font-size: 14px;
     font-weight: 500;
     transition: all 0.2s;
     white-space: nowrap;
     position: relative;
     border: 1px solid transparent;
+    overflow: hidden;
+}
+
+/* Icon-only link */
+.linkIcon {
+    justify-content: center;
+    padding: 11px;
+    gap: 0;
 }
 
 .link:hover {
@@ -241,134 +241,24 @@
 /* ===== MAIN ===== */
 .main {
     flex: 1;
-    margin-left: 260px;
-    padding: 32px;
     min-height: 100dvh;
+    padding: 10px 30px;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: #f0f2ff;
 }
 
-.mainClosed {
+/* ≥ 1200px, sidebar to'liq ochiq */
+.mainFull {
+    margin-left: 260px;
+}
+
+/* 768–1199px yoki collapsed: icon sidebar */
+.mainIcon {
     margin-left: 68px;
 }
 
+/* < 768px: mobile, sidebar yo'q */
 .mainMobile {
-    margin-left: 0 !important;
-    padding: 80px 16px 16px;
-}
-
-/* ===== 1200px — sidebar yopiladi ===== */
-@media (max-width: 1200px) {
-    .sidebar {
-        width: 68px;
-    }
-
-    .main {
-        margin-left: 68px;
-    }
-}
-
-
-
-/* ===== 420px va undan kichik barcha qurilmalar uchun (320px ham shuning ichida) ===== */
-@media (max-width: 420px) {
-
-    /* Desktop sidebarni butunlay yashiramiz */
-    .sidebar {
-        display: none !important;
-    }
-
-    /* Hamburger menyu tugmasini ko'rsatamiz */
-    .hamburger {
-        display: flex !important;
-        position: fixed;
-        width: 90%;
-        /* Kenglik juda katta bo'lsa, faqat ikonka uchun width: 40px qilsangiz ham bo'ladi */
-
-        /* Muhim: Fon rangini shaffof qiling */
-        background-color: rgba(53, 77, 106, 0.6);
-
-        /* Effektni kuchaytirish */
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        /* Safari brauzeri uchun */
-
-        top: 16px;
-        left: 16px;
-        z-index: 150;
-
-        /* Qo'shimcha bezak */
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        height: 45px;
-        /* Balandlik bering */
-        padding: 0 15px;
-        /* Ikonka uchun joy */
-        align-items: center;
-        /* Ikonkani vertikal o'rtaga qo'yish */
-    }
-
-    /* Asosiy kontentni chapga taqaymiz */
-    .main {
-        margin-left: 0 !important;
-        padding: 80px 16px 16px !important;
-        /* Tepadan hamburger uchun joy */
-        width: 100%;
-    }
-
-    /* Mobil sidebar ochilganda yozuvlar va logoni ko'rsatish */
-    .mobileSidebar .label,
-    .mobileSidebar .logoText,
-    .mobileSidebar .sectionTitle {
-        display: block !important;
-    }
-
-    /* Linklarni mobil menyuda chiroyli ko'rsatish */
-    .mobileSidebar .link {
-        justify-content: flex-start;
-        padding: 12px 16px;
-        gap: 12px;
-    }
-}
-
-/* ===== 320px — faqat ikonlar, desktop sidebar ===== */
-/* ===== 320px o'lcham uchun maxsus moslashuv ===== */
-@media (max-width: 320px) {
-
-    /* Asosiy (desktop) sidebarni butunlay yashiramiz */
-    .sidebar {
-        display: none !important;
-    }
-
-    /* Hamburger menyu ikonkasi ko'rinib tursin */
-    .hamburger {
-        display: flex !important;
-        /* Yashirilgan bo'lsa, qayta ko'rsatamiz */
-        left: 10px;
-        top: 10px;
-    }
-
-    /* Mobil sidebar (bosilganda chiqadigan qismi) */
-    .mobileSidebar {
-        display: flex;
-        /* Faqat JavaScript orqali .mobileOpen klassi qo'shilganda chiqadi */
-        width: 240px;
-        /* Ekran kichikligi uchun biroz torroq qildik */
-    }
-
-    /* Asosiy kontent sidebarga joy tashlamasligi kerak */
-    .main {
-        margin-left: 0 !important;
-        padding: 70px 15px 15px !important;
-        /* Tepadan hamburger uchun joy */
-        width: 100% !important;
-    }
-
-    /* Sidebar ichidagi yozuvlarni yashirish shart emas, 
-       chunki mobileSidebar ochilganda to'liq ko'rinishi kerak */
-    .label,
-    .sectionTitle,
-    .logoText {
-        display: inline !important;
-    }
+    margin-left: 0;
+    padding: 72px 16px 16px;
 }

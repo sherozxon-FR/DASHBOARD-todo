@@ -21,131 +21,128 @@ const categoryLinks = [
   { to: '/categories/loyha', label: 'Loyha', icon: <MdFolderSpecial /> },
 ]
 
-// 425px va undan kichik barcha o'lchamlar MOBILE deb hisoblanadi
-const checkMobile = () => window.innerWidth <= 425
-const checkCollapsed = () => window.innerWidth <= 1200
+const MOBILE_BP = 768
+const COLLAPSE_BP = 1200
+
+const getMode = () => {
+  if (window.innerWidth < MOBILE_BP) return 'mobile'
+  if (window.innerWidth < COLLAPSE_BP) return 'icon'
+  return 'full'
+}
 
 export default function MainLayout() {
-  const [isMobile, setIsMobile] = useState(checkMobile())
-  const [open, setOpen] = useState(!checkCollapsed())
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [mode, setMode] = useState(getMode)          // 'full' | 'icon' | 'mobile'
+  const [collapsed, setCollapsed] = useState(false)  // faqat 'full' mode uchun
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   useEffect(() => {
-    const handleResize = () => {
-      const mobile = checkMobile()
-      setIsMobile(mobile)
-
-      if (mobile) {
-        // Mobil rejimda desktop sidebar render bo'lmasligi kerak
-        setOpen(true)
-      } else {
-        setOpen(!checkCollapsed())
-        setMobileOpen(false)
-      }
+    const onResize = () => {
+      const m = getMode()
+      setMode(m)
+      if (m !== 'mobile') setDrawerOpen(false)
     }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  const closeMobile = () => setMobileOpen(false)
+  // Hozirgi sidebar holati
+  const showLabels = mode === 'full' && !collapsed
+  const sidebarWidth = mode === 'icon' ? 'icon' : collapsed ? 'icon' : 'full'
 
-  const SidebarContent = ({ mobile = false }) => (
-    <>
-      <div className={styles.logoRow}>
-        {(open || mobile) && (
-          <span className={styles.logoText}>Dashboard</span>
-        )}
-        {mobile ? (
-          <button className={styles.toggleBtn} onClick={closeMobile}>
-            <MdClose />
-          </button>
-        ) : (
-          <button className={styles.toggleBtn} onClick={() => setOpen(p => !p)}>
-            {open ? <FaAngleLeft /> : <FaAngleRight />}
-          </button>
-        )}
-      </div>
+  const NavItems = ({ onClickLink }) => (
+    <nav className={styles.nav}>
+      <ul>
+        {navLinks.map(({ to, label, icon }) => (
+          <li key={to}>
+            <NavLink
+              to={to} end
+              onClick={onClickLink}
+              className={({ isActive }) =>
+                `${styles.link} ${isActive ? styles.active : ''} ${sidebarWidth === 'icon' && mode !== 'mobile' ? styles.linkIcon : ''}`
+              }
+              title={sidebarWidth === 'icon' && mode !== 'mobile' ? label : undefined}
+            >
+              <span className={styles.icon}>{icon}</span>
+              {(showLabels || mode === 'mobile') && <span className={styles.label}>{label}</span>}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
 
-      <nav className={styles.nav}>
+      <div className={styles.section}>
+        {(showLabels || mode === 'mobile') && (
+          <p className={styles.sectionTitle}>Category</p>
+        )}
         <ul>
-          {navLinks.map(({ to, label, icon }) => (
+          {categoryLinks.map(({ to, label, icon }) => (
             <li key={to}>
               <NavLink
                 to={to}
-                end
-                onClick={mobile ? closeMobile : undefined}
+                onClick={onClickLink}
                 className={({ isActive }) =>
-                  `${styles.link} ${isActive ? styles.active : ''}`
+                  `${styles.link} ${isActive ? styles.active : ''} ${sidebarWidth === 'icon' && mode !== 'mobile' ? styles.linkIcon : ''}`
                 }
+                title={sidebarWidth === 'icon' && mode !== 'mobile' ? label : undefined}
               >
                 <span className={styles.icon}>{icon}</span>
-                {(open || mobile) && (
-                  <span className={styles.label}>{label}</span>
-                )}
+                {(showLabels || mode === 'mobile') && <span className={styles.label}>{label}</span>}
               </NavLink>
             </li>
           ))}
         </ul>
-
-        <div className={styles.section}>
-          {(open || mobile) && (
-            <p className={styles.sectionTitle}>Category</p>
-          )}
-          <ul>
-            {categoryLinks.map(({ to, label, icon }) => (
-              <li key={to}>
-                <NavLink
-                  to={to}
-                  onClick={mobile ? closeMobile : undefined}
-                  className={({ isActive }) =>
-                    `${styles.link} ${isActive ? styles.active : ''}`
-                  }
-                >
-                  <span className={styles.icon}>{icon}</span>
-                  {(open || mobile) && (
-                    <span className={styles.label}>{label}</span>
-                  )}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   )
 
   return (
     <div className={styles.wrapper}>
 
-      {/* 1. DESKTOP SIDEBAR - Faqat mobil bo'lmaganda render bo'ladi */}
-      {!isMobile && (
-        <aside className={`${styles.sidebar} ${!open ? styles.closed : ''}`}>
-          <SidebarContent mobile={false} />
+      {/* DESKTOP SIDEBAR — faqat tablet va kattaroq */}
+      {mode !== 'mobile' && (
+        <aside className={`${styles.sidebar} ${sidebarWidth === 'icon' ? styles.sidebarIcon : ''}`}>
+          <div className={styles.logoRow}>
+            {showLabels && <span className={styles.logoText}>Dashboard</span>}
+            {mode === 'full' && (
+              <button className={styles.toggleBtn} onClick={() => setCollapsed(p => !p)}>
+                {collapsed ? <FaAngleRight /> : <FaAngleLeft />}
+              </button>
+            )}
+          </div>
+          <NavItems onClickLink={undefined} />
         </aside>
       )}
 
-      {/* 2. HAMBURGER ICON - Faqat mobil rejimda ko'rinadi */}
-      {isMobile && (
-        <button className={styles.hamburger} onClick={() => setMobileOpen(true)}>
+      {/* HAMBURGER — faqat mobile */}
+      {mode === 'mobile' && (
+        <button className={styles.hamburger} onClick={() => setDrawerOpen(true)}>
           <MdMenu />
         </button>
       )}
 
-      {/* 3. MOBILE OVERLAY */}
-      {isMobile && mobileOpen && (
-        <div className={styles.overlay} onClick={closeMobile} />
+      {/* OVERLAY */}
+      {mode === 'mobile' && drawerOpen && (
+        <div className={styles.overlay} onClick={() => setDrawerOpen(false)} />
       )}
 
-      {/* 4. MOBILE SIDEBAR (DRAWER) */}
-      <aside className={`${styles.mobileSidebar} ${mobileOpen ? styles.mobileOpen : ''}`}>
-        <SidebarContent mobile={true} />
-      </aside>
+      {/* MOBILE DRAWER */}
+      {mode === 'mobile' && (
+        <aside className={`${styles.drawer} ${drawerOpen ? styles.drawerOpen : ''}`}>
+          <div className={styles.logoRow}>
+            <span className={styles.logoText}>Dashboard</span>
+            <button className={styles.toggleBtn} onClick={() => setDrawerOpen(false)}>
+              <MdClose />
+            </button>
+          </div>
+          <NavItems onClickLink={() => setDrawerOpen(false)} />
+        </aside>
+      )}
 
-      {/* 5. MAIN CONTENT */}
+      {/* MAIN CONTENT */}
       <main className={`
         ${styles.main}
-        ${!isMobile && !open ? styles.mainClosed : ''}
-        ${isMobile ? styles.mainMobile : ''}
+        ${mode === 'mobile' ? styles.mainMobile : ''}
+        ${mode !== 'mobile' && sidebarWidth === 'icon' ? styles.mainIcon : ''}
+        ${mode === 'full' && !collapsed ? styles.mainFull : ''}
       `}>
         <Outlet />
       </main>
