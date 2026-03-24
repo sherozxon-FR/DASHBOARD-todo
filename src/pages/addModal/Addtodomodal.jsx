@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import styles from "./AddTodoModal.module.css"
+import styles from "./Addtodomodal.module.css"
 
 const CATEGORIES = ["Ish", "O'qish", "Shaxsiy", "Loyiha"]
 const PRIORITIES = [
