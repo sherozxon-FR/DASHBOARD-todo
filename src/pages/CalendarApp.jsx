@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react"; // useEffect qo'shildi
+import { useState, useMemo, useEffect } from "react";
 import styles from "./Calendar.module.css";
 import { useTodo } from "../context/TodoContext";
 
@@ -21,7 +21,6 @@ const PRIORITIES = {
   Past: { color: "#6b7280", label: "Past" },
 };
 
-// helpers
 function getDaysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
 }
@@ -44,40 +43,31 @@ export default function CalendarApp() {
     month: today.getMonth(),
     day: today.getDate(),
   });
+  const [showEvents, setShowEvents] = useState(true); // 📱 Mobile uchun toggle
 
-  // 🔔 NOTIFICATION LOGIC
+  // 🔔 NOTIFICATION LOGIC (o'zgarmadi)
   useEffect(() => {
-    // Brauzerdan ruxsat so'rash
     if ("Notification" in window && Notification.permission === "default") {
       Notification.requestPermission();
     }
 
     const checkReminders = () => {
       const nowKey = toKey(today.getFullYear(), today.getMonth(), today.getDate());
-
       todos.forEach(t => {
-        // Agar deadline bugun bo'lsa va bajarilmagan bo'lsa
-        if (t.deadline === nowKey && !t.done) {
-          if (Notification.permission === "granted") {
-            new Notification("Eslatma!", {
-              body: `Bugun: ${t.text}`,
-              icon: "/favicon.ico" // Ixtiyoriy ikonka manzili
-            });
-          }
+        if (t.deadline === nowKey && !t.done && Notification.permission === "granted") {
+          new Notification("Eslatma!", {
+            body: `Bugun: ${t.text}`,
+            icon: "/favicon.ico"
+          });
         }
       });
     };
 
-    // Har 1 soatda bir marta tekshirib turadi
     const interval = setInterval(checkReminders, 1000 * 60 * 60);
-
-    // Sahifa yuklanganda ham bir marta tekshiradi
     checkReminders();
-
     return () => clearInterval(interval);
   }, [todos]);
 
-  // 🔥 TODOS → EVENTS
   const events = useMemo(() => {
     return todos.reduce((acc, t) => {
       if (!t.deadline) return acc;
@@ -144,16 +134,10 @@ export default function CalendarApp() {
   }
 
   const isToday = (cell) =>
-    cell.cur &&
-    cell.day === today.getDate() &&
-    month === today.getMonth() &&
-    year === today.getFullYear();
+    cell.cur && cell.day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
 
   const isSelected = (cell) =>
-    cell.cur &&
-    cell.day === selected.day &&
-    month === selected.month &&
-    year === selected.year;
+    cell.cur && cell.day === selected.day && month === selected.month && year === selected.year;
 
   function dayCellClass(cell) {
     return [
@@ -169,10 +153,12 @@ export default function CalendarApp() {
       <div className={styles.card}>
         <div className={styles.left}>
           <div className={styles.header}>
-            <button onClick={prevMonth}>‹</button>
+            <button onClick={prevMonth} aria-label="O'tgan oy">‹</button>
             <span>{MONTHS[month]} {year}</span>
-            <button onClick={nextMonth}>›</button>
-            <button onClick={goToday}>Bugun</button>
+            <div className={styles.headerRight}>
+              <button onClick={nextMonth} aria-label="Keyingi oy">›</button>
+              <button onClick={goToday} className={styles.todayBtn}>Bugun</button>
+            </div>
           </div>
 
           <div className={styles.grid}>
@@ -186,11 +172,13 @@ export default function CalendarApp() {
                 <div
                   key={i}
                   className={dayCellClass(cell)}
-                  onClick={() =>
-                    cell.cur && setSelected({ year, month, day: cell.day })
-                  }
+                  onClick={() => cell.cur && setSelected({ year, month, day: cell.day })}
+                  role="button"
+                  tabIndex={cell.cur ? 0 : -1}
                 >
                   <div className={styles.dayNum}>{cell.day}</div>
+
+                  {/* 📱 Mobile: faqat nuqtalar, Desktop: matn */}
                   {evts.slice(0, 2).map(e => (
                     <div
                       key={e.id}
@@ -200,10 +188,13 @@ export default function CalendarApp() {
                         color: CATEGORIES[e.category]?.color,
                         borderLeft: `3px solid ${PRIORITIES[e.priority]?.color}`,
                       }}
+                      title={e.title} // Hover uchun tooltip
                     >
-                      {e.done ? "✅ " : ""}{e.title}
+                      {e.done ? "✅" : "●"}
+                      <span className={styles.evtText}>{e.title}</span>
                     </div>
                   ))}
+
                   {evts.length > 2 && (
                     <div className={styles.moreBadge}>+{evts.length - 2}</div>
                   )}
@@ -213,20 +204,50 @@ export default function CalendarApp() {
           </div>
         </div>
 
-        <div className={styles.right}>
-          <h3>Tanlangan kun</h3>
-          <div>
-            {selected.day}-{MONTHS[selected.month]} {selected.year}
-          </div>
-          {selectedEvents.length === 0 && <p>Reja yo‘q</p>}
-          {selectedEvents.map(e => (
-            <div key={e.id} className={styles.evtCard}>
-              <div>{e.done ? "✅ " : ""}{e.title}</div>
-              <span style={{ color: CATEGORIES[e.category]?.color }}>{e.category}</span>
-              <span style={{ color: PRIORITIES[e.priority]?.color }}>{e.priority}</span>
+        {/* 📱 Mobile toggle button */}
+        <button
+          className={styles.toggleBtn}
+          onClick={() => setShowEvents(!showEvents)}
+          aria-expanded={showEvents}
+        >
+          {showEvents ? "📋 Yopish" : "📋 Rejalar"}
+        </button>
+
+        {showEvents && (
+          <div className={styles.right}>
+            <div className={styles.rightHeader}>
+              <h3>Tanlangan kun</h3>
+              <div className={styles.selectedDate}>
+                {selected.day} {MONTHS[selected.month]} {selected.year}
+              </div>
             </div>
-          ))}
-        </div>
+
+            {selectedEvents.length === 0 ? (
+              <div className={styles.emptyState}>
+                <div className={styles.emptyIcon}>📝</div>
+                <p>Kun uchun reja yo‘q</p>
+              </div>
+            ) : (
+              selectedEvents.map(e => (
+                <div key={e.id} className={styles.evtCard}>
+                  <div className={styles.evtTitle}>
+                    {e.done ? "✅" : "○"} {e.title}
+                  </div>
+                  <div className={styles.evtTags}>
+                    <span className={styles.tag}
+                      style={{ background: CATEGORIES[e.category]?.bg, color: CATEGORIES[e.category]?.color }}>
+                      {e.category}
+                    </span>
+                    <span className={styles.priorityTag}
+                      style={{ color: PRIORITIES[e.priority]?.color }}>
+                      {e.priority}
+                    </span>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

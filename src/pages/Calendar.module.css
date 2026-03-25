@@ -1,255 +1,598 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+/* ============================================================
+   Calendar.module.css — Refined Glass-Morphic Dark Theme
+   Aesthetic: Luxury editorial · Glassmorphism · Geometric
+   ============================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+/* ── Root tokens ─────────────────────────────────────────── */
 :root {
-    --primary: #6366f1;
-    --bg-main: #f8fafc;
-    --card-bg: #ffffff;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --border-color: #f1f5f9;
+    --c-bg: #0d0f17;
+    --c-surface: rgba(255, 255, 255, 0.04);
+    --c-surface-hover: rgba(255, 255, 255, 0.08);
+    --c-border: rgba(255, 255, 255, 0.08);
+    --c-border-strong: rgba(255, 255, 255, 0.16);
+    --c-text: #e8eaf2;
+    --c-text-muted: rgba(232, 234, 242, 0.45);
+    --c-accent: #7c6af7;
+    --c-accent-soft: rgba(124, 106, 247, 0.18);
+    --c-accent-glow: rgba(124, 106, 247, 0.35);
+    --c-today: #f97316;
+    --c-today-soft: rgba(249, 115, 22, 0.15);
+    --c-selected: #7c6af7;
+    --c-selected-soft: rgba(124, 106, 247, 0.22);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --radius-xl: 32px;
+    --shadow-card: 0 32px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    --shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ── Wrapper ──────────────────────────────────────────────── */
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
     min-height: 100vh;
-    padding: clamp(10px, 3vw, 40px);
-    background-color: var(--bg-main);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-.card {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    font-family: var(--font-body);
+    background: var(--c-bg);
+    background-image:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 106, 247, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 90%, rgba(249, 115, 22, 0.08) 0%, transparent 55%);
+    color: var(--c-text);
+}
+
+/* ── Main card ────────────────────────────────────────────── */
+.card {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: auto auto;
+    gap: 0;
     width: 100%;
-    max-width: 1100px;
-    background: var(--card-bg);
-    border-radius: 24px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    max-width: 900px;
+    background: rgba(18, 20, 32, 0.85);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--c-border);
+    box-shadow: var(--shadow-card), var(--shadow-inner);
     overflow: hidden;
-    border: 1px solid var(--border-color);
-    flex-direction: row;
-    /* Desktop uchun */
+    animation: cardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* --- CHAP TOMON (KALENDAR) --- */
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ── Left panel ───────────────────────────────────────────── */
 .left {
-    flex: 1;
-    padding: clamp(12px, 4vw, 30px);
-    min-width: 0;
+    padding: 28px 28px 24px;
+    border-right: 1px solid var(--c-border);
 }
 
+/* ── Header ───────────────────────────────────────────────── */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
-    gap: 8px;
-    flex-wrap: wrap;
-    /* Kichik ekranda pastga tushishi uchun */
+    margin-bottom: 24px;
+    gap: 12px;
 }
 
 .header span {
-    font-size: clamp(1rem, 4vw, 1.4rem);
-    font-weight: 800;
-    color: var(--text-main);
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
     letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #e8eaf2 0%, #a0a8c8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex: 1;
+    text-align: center;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .header button {
-    padding: 8px 14px;
-    border: 1px solid var(--border-color);
-    background: #fff;
-    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--c-border);
+    background: var(--c-surface);
+    color: var(--c-text);
+    font-size: 1.1rem;
     cursor: pointer;
-    font-weight: 600;
-    font-size: 0.85rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition);
+    flex-shrink: 0;
 }
 
 .header button:hover {
-    background: var(--text-main);
-    color: white;
-    transform: translateY(-1px);
+    background: var(--c-surface-hover);
+    border-color: var(--c-border-strong);
+    transform: scale(1.05);
 }
 
-/* SETKA */
+.header button:active {
+    transform: scale(0.97);
+}
+
+.todayBtn {
+    width: auto !important;
+    padding: 0 14px !important;
+    font-size: 0.72rem !important;
+    font-weight: 500;
+    font-family: var(--font-body);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--c-accent) !important;
+    border-color: var(--c-accent-soft) !important;
+    background: var(--c-accent-soft) !important;
+}
+
+.todayBtn:hover {
+    background: rgba(124, 106, 247, 0.28) !important;
+    border-color: var(--c-accent) !important;
+}
+
+/* ── Day headers ──────────────────────────────────────────── */
 .grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    background: var(--border-color);
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    /* minmax(0,1fr) — overflow oldini oladi */
+    gap: 3px;
 }
 
 .dayHead {
-    background: #fafcfe;
-    padding: 12px 2px;
     text-align: center;
-    font-weight: 700;
-    font-size: clamp(0.6rem, 2vw, 0.75rem);
-    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--c-text-muted);
+    padding: 6px 0 10px;
 }
 
+/* ── Day cells ────────────────────────────────────────────── */
 .dayCell {
-    background: #ffffff;
-    min-height: clamp(60px, 12vh, 100px);
-    padding: 6px;
+    position: relative;
+    min-height: 64px;
+    padding: 6px 5px 5px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
     display: flex;
     flex-direction: column;
-    transition: all 0.2s ease;
+    gap: 2px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    /* ← kontentni katakdan chiqmaslik */
+    min-width: 0;
+    /* ← flex ichida to'g'ri kenglik */
+    box-sizing: border-box;
 }
 
 .dayCell:hover {
-    background: #f8fafc;
-    z-index: 1;
+    background: var(--c-surface-hover);
+    border-color: var(--c-border);
+}
+
+.dayCell:active {
+    transform: scale(0.97);
 }
 
 .dayNum {
-    font-weight: 700;
-    font-size: clamp(0.75rem, 3vw, 0.95rem);
-    color: var(--text-main);
-    margin-bottom: 4px;
+    font-size: 0.82rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--c-text);
+    padding: 2px 4px;
+    align-self: flex-start;
+    transition: color var(--transition);
 }
 
-/* BUGUN VA TANLANGAN KUN */
-.isToday {
-    background: #eff6ff !important;
-}
-
-.isToday .dayNum {
-    color: var(--primary);
-    text-decoration: underline;
-}
-
-.isSelected {
-    background: #f5f3ff !important;
-    box-shadow: inset 0 0 0 2px var(--primary);
+.otherMonth .dayNum {
+    color: var(--c-text-muted);
 }
 
 .otherMonth {
-    opacity: 0.35;
-    background: #fcfcfc;
+    opacity: 0.4;
+    pointer-events: none;
 }
 
-/* EVENTLAR (NUQTA VA CHIZIQ) */
-.evtDot {
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    border-radius: 6px;
-    margin-bottom: 3px;
+/* Today */
+.isToday {
+    background: var(--c-today-soft);
+    border-color: rgba(249, 115, 22, 0.25) !important;
+}
+
+.isToday .dayNum {
+    font-weight: 700;
+    color: var(--c-today);
+}
+
+/* Selected */
+.isSelected {
+    background: var(--c-selected-soft) !important;
+    border-color: rgba(124, 106, 247, 0.4) !important;
+    box-shadow: 0 0 0 1px var(--c-accent-glow);
+}
+
+.isSelected .dayNum {
+    color: #c4bfff;
     font-weight: 600;
+}
+
+/* ── Event dots ───────────────────────────────────────────── */
+.evtDot {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.62rem;
+    font-weight: 500;
+    line-height: 1.4;
+    overflow: hidden;
     white-space: nowrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+    transition: opacity var(--transition);
+}
+
+.evtText {
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
 }
 
 .moreBadge {
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    font-weight: 800;
-    margin-top: auto;
+    font-size: 0.58rem;
+    font-weight: 600;
+    color: var(--c-text-muted);
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--c-surface-hover);
+    align-self: flex-start;
+    margin-top: 1px;
 }
 
-/* --- O'NG TOMON (INFO) --- */
+/* ── Mobile toggle button ─────────────────────────────────── */
+.toggleBtn {
+    display: none;
+    grid-column: 1 / -1;
+    width: calc(100% - 32px);
+    margin: 0 16px 4px;
+    padding: 10px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--c-border);
+    background: var(--c-surface);
+    color: var(--c-text);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.toggleBtn:hover {
+    background: var(--c-surface-hover);
+    border-color: var(--c-border-strong);
+}
+
+/* ── Right panel ──────────────────────────────────────────── */
 .right {
-    width: clamp(280px, 30%, 350px);
-    padding: clamp(15px, 4vw, 30px);
-    background: #fcfdfe;
-    border-left: 1px solid var(--border-color);
+    padding: 28px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    max-height: 560px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--c-border) transparent;
+    animation: slideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.right h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.2rem;
-    font-weight: 800;
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
+.right::-webkit-scrollbar {
+    width: 4px;
+}
+
+.right::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.right::-webkit-scrollbar-thumb {
+    background: var(--c-border);
+    border-radius: 4px;
+}
+
+.rightHeader {
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--c-border);
+    margin-bottom: 4px;
+}
+
+.rightHeader h3 {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+    margin: 0 0 6px;
+}
+
+.selectedDate {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #e8eaf2 0%, var(--c-accent) 120%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+}
+
+/* ── Empty state ──────────────────────────────────────────── */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 40px 20px;
+    text-align: center;
+    opacity: 0.55;
+}
+
+.emptyIcon {
+    font-size: 2rem;
+}
+
+.emptyState p {
+    font-size: 0.82rem;
+    color: var(--c-text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ── Event cards ──────────────────────────────────────────── */
 .evtCard {
-    background: white;
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    animation: evtIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* --- EKSTREMAL RESPONSIVE --- */
+.evtCard:hover {
+    background: var(--c-surface-hover);
+    border-color: var(--c-border-strong);
+    transform: translateX(3px);
+}
 
-/* 992px gacha (Planshet) */
-@media (max-width: 992px) {
+@keyframes evtIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.evtTitle {
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--c-text);
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+}
+
+.evtTags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+}
+
+.priorityTag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+/* ================================================================
+   RESPONSIVE — Tablet (≤720px)
+   ================================================================ */
+@media (max-width: 720px) {
     .card {
-        flex-direction: column;
-    }
-
-    .right {
-        width: 100%;
-        border-left: none;
-        border-top: 1px solid var(--border-color);
-    }
-}
-
-/* 480px gacha (Smartfon) */
-@media (max-width: 480px) {
-    .dayCell {
-        min-height: 70px;
-        padding: 4px;
-    }
-
-    .evtDot {
-        font-size: 0;
-        padding: 3px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 2px;
-    }
-}
-
-/* 320px va undan kichik (Micro) */
-@media (max-width: 340px) {
-    .wrapper {
-        padding: 5px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        border-radius: var(--radius-lg);
+        max-width: 480px;
     }
 
     .left {
-        padding: 10px;
+        border-right: none;
+        border-bottom: 1px solid var(--c-border);
+        padding: 20px 16px 16px;
     }
 
-    .header {
-        justify-content: center;
+    .toggleBtn {
+        display: block;
+        grid-row: 2;
     }
 
-    .header button {
-        padding: 6px 10px;
-        font-size: 0.75rem;
+    .right {
+        grid-row: 3;
+        max-height: 340px;
+        padding: 16px 16px 20px;
+        border-top: 1px solid var(--c-border);
+        animation: slideDown 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    /* Haftaning qisqa nomlari */
-    .dayHead {
-        font-size: 0.55rem;
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .dayCell {
-        min-height: 55px;
-        border-radius: 8px;
+        min-height: 52px;
+        padding: 4px 3px 3px;
+    }
+
+    .evtText {
+        display: none;
+    }
+
+    .evtDot {
+        padding: 3px;
+        border-radius: 50%;
+        width: 8px;
+        height: 8px;
+        justify-content: center;
+        font-size: 0;
+    }
+
+    .evtDot::before {
+        content: '';
+        display: block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+
+    .moreBadge {
+        font-size: 0.5rem;
+        padding: 0 2px;
+    }
+
+    .selectedDate {
+        font-size: 1.05rem;
+    }
+}
+
+/* ================================================================
+   RESPONSIVE — Mobile (≤400px)
+   ================================================================ */
+@media (max-width: 400px) {
+    .wrapper {
+        padding: 12px 10px;
+    }
+
+    .card {
+        border-radius: var(--radius-lg);
+    }
+
+    .left {
+        padding: 16px 12px 12px;
+    }
+
+    .header span {
+        font-size: 1rem;
+    }
+
+    .header button {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+
+    .grid {
+        gap: 2px;
+    }
+
+    .dayCell {
+        min-height: 42px;
+        padding: 3px 2px 2px;
     }
 
     .dayNum {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
     }
 
-    /* Juda kichik ekranda o'ng tomonni ixchamlashtirish */
+    .dayHead {
+        font-size: 0.6rem;
+        padding-bottom: 7px;
+    }
+
     .right {
-        padding: 15px;
+        padding: 14px 12px 16px;
+    }
+
+    .selectedDate {
+        font-size: 0.95rem;
     }
 
     .evtCard {
-        padding: 10px;
+        padding: 10px 12px;
+    }
+
+    .evtTitle {
+        font-size: 0.8rem;
     }
 }
