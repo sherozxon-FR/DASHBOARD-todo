@@ -36,14 +36,15 @@
 .wrapper {
     min-height: 100vh;
     width: 100%;
+    margin-top: -30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px 6px;
+    padding: 6px;
     font-family: var(--font-body);
-    background-image:
+    /* background-image:
         radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 106, 247, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 80% 90%, rgba(249, 115, 22, 0.08) 0%, transparent 55%);
+        radial-gradient(ellipse 60% 50% at 80% 90%, rgba(249, 115, 22, 0.08) 0%, transparent 55%); */
     color: var(--c-text);
 }
 
@@ -54,7 +55,6 @@
     grid-template-rows: auto auto;
     gap: 0;
     width: 100%;
-    margin: 0 auto;
     background: rgba(18, 20, 32, 0.85);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
