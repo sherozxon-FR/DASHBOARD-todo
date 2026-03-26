@@ -1,0 +1,1149 @@
+/* ═══════════════════════════════════════════════════════
+   Uqish.module.css  —  same design language as Ish.module.css
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Page shell ─────────────────────────────────────── */
+.container {
+    min-height: 100vh;
+    background: #f0f4f8;
+    padding: 24px 28px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    box-sizing: border-box;
+}
+
+/* ══════════════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════════════ */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px #22c55e33;
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 3px #22c55e33;
+    }
+
+    50% {
+        box-shadow: 0 0 0 7px #22c55e11;
+    }
+}
+
+.pageTitle {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.badge {
+    background: #e2e8f0;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.clock {
+    font-size: 13px;
+    color: #94a3b8;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+    background: #e2e8f0;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.addBtn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.1s;
+}
+
+.addBtn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.addBtn:hover {
+    background: #16a34a;
+}
+
+.addBtn:active {
+    transform: scale(0.97);
+}
+
+/* ══════════════════════════════════════════════════════
+   STATUS BAR
+══════════════════════════════════════════════════════ */
+.statusBar {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 20px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 1px 4px #0001;
+}
+
+.statusSteps {
+    display: flex;
+    gap: 24px;
+    flex-shrink: 0;
+}
+
+.statusStep {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.statusDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.statusLabel {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.statusCount {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.statusTrack {
+    flex: 1;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+}
+
+.statusActive {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #f5a62388;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+.statusDone {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #22c55e;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+.statusPercent {
+    font-size: 14px;
+    font-weight: 700;
+    color: #22c55e;
+    flex-shrink: 0;
+    min-width: 36px;
+    text-align: right;
+}
+
+/* ══════════════════════════════════════════════════════
+   STAT CARDS
+══════════════════════════════════════════════════════ */
+.statsRow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.statCard {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 1px 4px #0001;
+}
+
+.statLabel {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.statValue {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.statSub {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.progressBar {
+    width: 100%;
+    height: 5px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: #22c55e;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+/* ══════════════════════════════════════════════════════
+   MAIN GRID
+══════════════════════════════════════════════════════ */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 20px;
+    align-items: start;
+}
+
+.aside {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ══════════════════════════════════════════════════════
+   SECTION / PANEL
+══════════════════════════════════════════════════════ */
+.section,
+.panel {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 1px 4px #0001;
+}
+
+.sectionHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.sectionTitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    letter-spacing: 0.01em;
+}
+
+.sectionBadge {
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+}
+
+.panelBody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ══════════════════════════════════════════════════════
+   TASK CARD
+══════════════════════════════════════════════════════ */
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.taskCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    position: relative;
+    overflow: hidden;
+}
+
+.taskCard:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 2px 8px #0001;
+}
+
+.taskDone {
+    opacity: 0.55;
+    background: #f8fafc;
+}
+
+.taskDone .taskName {
+    text-decoration: line-through;
+    color: #94a3b8;
+}
+
+/* priority stripe */
+.stripe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 99px 0 0 99px;
+}
+
+.stripeHigh {
+    background: #ef4444;
+}
+
+.stripeMid {
+    background: #f5a623;
+}
+
+.stripeLow {
+    background: #22c55e;
+}
+
+/* checkbox */
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid #d1d5db;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+    padding: 0;
+}
+
+.checkbox svg {
+    width: 12px;
+    height: 12px;
+}
+
+.checked {
+    background: #22c55e;
+    border-color: #22c55e;
+}
+
+.taskInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.taskName {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1e293b;
+    margin: 0 0 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.taskMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.taskDate {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 99px;
+}
+
+.dateWeek {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.dateDone {
+    background: #f0fdf4;
+    color: #22c55e;
+}
+
+/* priority tags */
+.priorityTag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 99px;
+}
+
+.tagHigh {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.tagMid {
+    background: #fffbeb;
+    color: #f5a623;
+}
+
+.tagLow {
+    background: #f0fdf4;
+    color: #22c55e;
+}
+
+/* action buttons */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.taskCard:hover .actions {
+    opacity: 1;
+}
+
+.actionBtn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    padding: 0;
+}
+
+.actionBtn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.actionDone:hover {
+    background: #f0fdf4;
+    color: #22c55e;
+}
+
+.actionUndo:hover {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.actionEdit:hover {
+    background: #fffbeb;
+    color: #f5a623;
+}
+
+.actionDelete:hover {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+/* ══════════════════════════════════════════════════════
+   EMPTY STATE
+══════════════════════════════════════════════════════ */
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+    gap: 10px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.emptyIcon svg {
+    width: 52px;
+    height: 52px;
+    stroke: #cbd5e1;
+}
+
+.emptyTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #475569;
+    margin: 0;
+}
+
+.emptyDesc {
+    font-size: 13px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.emptyAddBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.emptyAddBtn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.emptyAddBtn:hover {
+    background: #16a34a;
+}
+
+/* ══════════════════════════════════════════════════════
+   BOOKS PANEL
+══════════════════════════════════════════════════════ */
+.bookItem {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.bookIcon {
+    width: 36px;
+    height: 36px;
+    background: #f0fdf4;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #22c55e;
+    flex-shrink: 0;
+}
+
+.bookIcon svg {
+    width: 17px;
+    height: 17px;
+}
+
+.bookInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.bookTitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.bookAuthor {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.bookBarWrap {
+    margin-top: 4px;
+}
+
+.bookBarTrack {
+    width: 100%;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.bookBarFill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.3s ease;
+}
+
+.bookPct {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.bookDone {
+    font-size: 11px;
+    font-weight: 600;
+    color: #22c55e;
+}
+
+.bookSlider {
+    width: 100%;
+    margin-top: 4px;
+    accent-color: #22c55e;
+    cursor: pointer;
+    height: 14px;
+}
+
+/* ══════════════════════════════════════════════════════
+   WEEKLY CHART
+══════════════════════════════════════════════════════ */
+.chartWrap {
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+    height: 90px;
+    margin-bottom: 8px;
+}
+
+.barCol {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    height: 100%;
+}
+
+.barWrap {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar {
+    width: 100%;
+    border-radius: 5px 5px 2px 2px;
+    min-height: 5px;
+    transition: height 0.3s ease;
+}
+
+.dayLabel {
+    font-size: 10px;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.chartSub {
+    font-size: 11px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════
+   ACTIVITY PANEL
+══════════════════════════════════════════════════════ */
+.actItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.actDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.actText {
+    font-size: 13px;
+    color: #1e293b;
+    font-weight: 500;
+    margin: 0 0 2px;
+}
+
+.actTime {
+    font-size: 11px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.noActivity {
+    font-size: 13px;
+    color: #94a3b8;
+    text-align: center;
+    padding: 16px 0;
+    margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════
+   MODAL OVERLAY
+══════════════════════════════════════════════════════ */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: #00000055;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 24px;
+    animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal {
+    background: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 20px 60px #0003;
+    animation: slideUp 0.2s ease;
+    overflow: hidden;
+}
+
+.deleteModal {
+    max-width: 400px;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(24px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px 0;
+}
+
+.modalTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modalIconBox {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #f0fdf4;
+    color: #22c55e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalIconBox svg {
+    width: 17px;
+    height: 17px;
+}
+
+.modalIconEdit {
+    background: #fffbeb;
+    color: #f5a623;
+}
+
+.modalIconDanger {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.modalTitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.closeBtn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f1f5f9;
+    border-radius: 8px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    padding: 0;
+}
+
+.closeBtn svg {
+    width: 13px;
+    height: 13px;
+}
+
+.closeBtn:hover {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+/* ── Modal body ── */
+.modalBody {
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.fieldLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.req {
+    color: #ef4444;
+}
+
+.optional {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.inputWrap {
+    position: relative;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 36px 10px 13px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #1e293b;
+    background: #f8fafc;
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border-color: #22c55e;
+    background: #fff;
+}
+
+.input::placeholder {
+    color: #cbd5e1;
+}
+
+.clearBtn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    border: none;
+    background: #e2e8f0;
+    border-radius: 50%;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.clearBtn svg {
+    width: 10px;
+    height: 10px;
+}
+
+.charCount {
+    font-size: 11px;
+    color: #94a3b8;
+    text-align: right;
+}
+
+.charWarn {
+    color: #ef4444;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-6px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(6px);
+    }
+}
+
+.shake {
+    animation: shake 0.44s ease;
+    border-color: #ef4444 !important;
+}
+
+/* priority picker */
+.priorityPicker {
+    display: flex;
+    gap: 8px;
+}
+
+.pOpt {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.pOptDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dotHigh {
+    background: #ef4444;
+}
+
+.dotMid {
+    background: #f5a623;
+}
+
+.dotLow {
+    background: #22c55e;
+}
+
+.poHigh.pOptActive {
+    border-color: #ef4444;
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.poMid.pOptActive {
+    border-color: #f5a623;
+    background: #fffbeb;
+    color: #f5a623;
+}
+
+.poLow.pOptActive {
+    border-color: #22c55e;
+    background: #f0fdf4;
+    color: #22c55e;
+}
+
+.pOpt:not(.pOptActive):hover {
+    border-color: #cbd5e1;
+    background: #f1f5f9;
+}
+
+/* ── Modal footer ── */
+.modalFooter {
+    display: flex;
+    gap: 10px;
+    padding: 16px 22px 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.cancelBtn {
+    flex: 1;
+    padding: 10px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.cancelBtn:hover {
+    background: #f8fafc;
+}
+
+.submitBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.submitBtn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.submitBtn:hover {
+    background: #16a34a;
+}
+
+/* delete modal */
+.deleteBody {
+    padding: 16px 22px;
+}
+
+.deleteMsg {
+    font-size: 14px;
+    color: #334155;
+    margin: 0 0 8px;
+    line-height: 1.5;
+}
+
+.deleteWarn {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.deleteConfirmBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.deleteConfirmBtn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.deleteConfirmBtn:hover {
+    background: #dc2626;
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .statsRow {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .container {
+        padding: 16px;
+    }
+
+    .statsRow {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .statusSteps {
+        gap: 12px;
+    }
+
+    .statusBar {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
